@@ -43,33 +43,41 @@ public class MainProgram
         }
         while (true)
         {
+            int numb = 0;
             Console.WriteLine("(Введите только цифру) \n(1) Выход из программы. \n(2) Поиск книги автора по фамилии.");
-            int numb = Convert.ToInt16(Console.ReadLine());
-            if (numb == 1)
+            try
             {
-                break;
-            }
-            else if (numb == 2)
-            {
-                Console.WriteLine("Введите фамилию автора: ");
-                bool InLibrary = false;
-                string Fam = Console.ReadLine();
-                foreach (Book book in booking)
+                numb = Convert.ToInt16(Console.ReadLine());
+                if (numb == 1)
                 {
-                    if (book.GetAuthor().ToUpper() == Fam.ToUpper())
+                    break;
+                }
+                else if (numb == 2)
+                {
+                    Console.WriteLine("Введите фамилию автора: ");
+                    bool InLibrary = false;
+                    string Fam = Console.ReadLine();
+                    foreach (Book book in booking)
                     {
-                        book.Info();
-                        InLibrary = true;
+                        if (book.GetAuthor().ToUpper() == Fam.ToUpper())
+                        {
+                            book.Info();
+                            InLibrary = true;
+                        }
+                    }
+                    if (InLibrary == false)
+                    {
+                        Console.WriteLine("Книг данного автора не найдено :(");
                     }
                 }
-                if (InLibrary == false)
+                else
                 {
-                    Console.WriteLine("Книг данного автора не найдено :(");
+                    Console.WriteLine("Введите 1 или 2.");
                 }
             }
-            else
+            catch (FormatException)
             {
-                Console.WriteLine("Error, выберите цифры от 1 до 2")
+                Console.WriteLine("Error, введите только число.");
             }
         }
     }
